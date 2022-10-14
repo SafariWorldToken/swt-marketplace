@@ -16,6 +16,40 @@ The installation depends on the operating system, click [here](https://nodejs.or
 
 Any text editor of your choice can be used. However Visual Studio Code and Atom are highly recommended.
 
+#### Folder Structure
+
+There are two folders in the parent folder `swt-marketplace`. This folder contains all the files to run both the backend and the frontend. Frontend folder `client`, backend folder `server`.
+
+```
+client
+    node_modules
+    public
+        favicon_io
+        apple-touch-icon.png
+        favicon.ico
+        index.html
+        manifest.json
+        robots.txt
+        Siyacoda.png
+        siyacoda.svg
+    src
+        components
+            AddLearner.js
+            EditLearner.js
+            ListLearner.js
+        App.css
+        index.css
+        index.js
+        reportWebVitals.js
+        .gitignore
+        package-lock.json
+        package.json
+server
+    currently no database
+README.md
+
+```
+
 # Formatting The Code
 
 eslint (https://eslint.org/)
