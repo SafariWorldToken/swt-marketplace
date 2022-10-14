@@ -53,6 +53,7 @@ client
     vue.config.js
     package.json
 server
+    smart contracts
     currently no database
 README.md
 
