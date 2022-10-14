@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import NftCard from './components/NftCard.vue';
+import NftCard from '@/components/NftCard.vue';
 
 
 export default {

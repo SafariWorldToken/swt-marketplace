@@ -24,26 +24,34 @@ There are two folders in the parent folder `swt-marketplace`. This folder contai
 client
     node_modules
     public
-        favicon_io
-        apple-touch-icon.png
+        img
+            icons
+                (icon image files)
         favicon.ico
         index.html
-        manifest.json
         robots.txt
-        Siyacoda.png
-        siyacoda.svg
     src
+        assets
+            fonts
+            img
+            style
         components
-            AddLearner.js
-            EditLearner.js
-            ListLearner.js
-        App.css
-        index.css
-        index.js
-        reportWebVitals.js
-        .gitignore
-        package-lock.json
-        package.json
+            Components.vue
+        router
+            index.js
+        store
+            index.js
+        views
+            Views.Vue
+        App.vue
+        main.js
+    .env
+    .env.production
+    .eslintrc.js
+    .gitiginore
+    babel.config.js
+    vue.config.js
+    package.json
 server
     currently no database
 README.md
@@ -68,6 +76,10 @@ git clone https://github.com/SafariWorldToken/swt-marketplace.git
 ```
 
 ## Project setup
+
+```
+CD into client folder
+```
 
 ```
 yarn/npm install

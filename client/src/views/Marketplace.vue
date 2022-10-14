@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import NftGrid from './components/NftGrid.vue';
-import Filter from './components/Filter.vue';
+import NftGrid from '@/components/NftGrid.vue';
+import Filter from '@/components/Filter.vue';
 import { ref } from 'vue';
 
 export default {

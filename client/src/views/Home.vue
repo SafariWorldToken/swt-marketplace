@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import Login from './components/Login.vue';
-import NftGrid from './components/NftGrid.vue';
-import Filter from './components/Filter.vue';
+import Login from '@/components/Login.vue';
+import NftGrid from '@/components/NftGrid.vue';
+import Filter from '@/components/Filter.vue';
 import { ref } from 'vue';
 
 export default {
