@@ -78,9 +78,7 @@ git clone https://github.com/SafariWorldToken/swt-marketplace.git
 
 ## Project setup
 
-```
 CD into client folder
-```
 
 ```
 yarn/npm install
