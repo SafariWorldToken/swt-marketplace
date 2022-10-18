@@ -12,7 +12,7 @@
 
 The installation depends on the operating system, click [here](https://nodejs.org/en/) for details. On Mac using Homebrew run `brew install node` on Linux `sudo apt install nodejs`
 
-# 2. Text Editor
+# Text Editor
 
 Any text editor of your choice can be used. However Visual Studio Code and Atom are highly recommended.
 
@@ -45,8 +45,8 @@ client
             Views.Vue
         App.vue
         main.js
-    .env
-    .env.production
+    .env (download from private repo: env-variables)
+    .env.production (download from private repo: env-variables)
     .eslintrc.js
     .gitiginore
     babel.config.js
@@ -66,7 +66,6 @@ eslint (https://eslint.org/)
 # formatting a file example
 
 On VS code, yu can change your settings to format after saving.
-Select Prettier as your code formatter
 
 # Running The Project
 
@@ -78,7 +77,13 @@ git clone https://github.com/SafariWorldToken/swt-marketplace.git
 
 ## Project setup
 
-CD into client folder
+# download place private env variables into client side src folder
+
+```
+https://github.com/SafariWorldToken/env-variables.git
+```
+
+# CD into client folder
 
 ```
 yarn/npm install
