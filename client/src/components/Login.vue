@@ -1,14 +1,93 @@
 <template>
   <div >
     <h1>Login Module</h1>
-    <p>METAMASK/WALLET CONNECT</p>
+    <p>METAMASK</p>
+    <template v-if="isAuthenticated">
+      <p>disconnect to logout</p>
+    </template>
+    <template v-else>
+      <button @click="metaLogin">Metamask</button>
+  </template>
     <p>ACCOUNT BALANCE/LOGOUT</p>
   </div>
 </template>
 
 <script>
+import { onMounted, inject, computed } from 'vue';
+import { useStore } from 'vuex';
+
 export default {
-    name: "Login"
+    name: "Login",
+    setup() {
+      const store = useStore()
+      const $moralis = inject('$moralis')
+
+      const setUser = (payload) => store.commit('setUser', payload)
+      const setAccountAddress = (address) => store.commit('setAccountAddress', address)
+      const setProvider = (provider) => store.commit('setProvider', provider)
+
+      const metaLogin = async () => {
+        try {
+          const provider = await $moralis.enableWeb3()
+          const chainId = await provider.chainId;
+          if ( chainId != 56 ) {
+              //store.state.modal["messageModal"]["message"] = "switching network...";
+              //store.state.modal["messageModal"]["status"] = true;
+              const newId = 56;
+              await $moralis.switchNetwork(newId);
+              //store.state.modal["messageModal"]["status"] = false;
+              const user = await $moralis.Web3.authenticate()
+              const address = user.get('ethAddress')
+              setUser(user)
+              setAccountAddress(address)
+              setProvider(provider)
+              //getUserNfts()
+              return
+          }
+          const user = await $moralis.Web3.authenticate()
+          const address = user.get('ethAddress')
+          setUser(user)
+          setAccountAddress(address)
+          setProvider(provider)
+          //getUserNfts()
+        } catch (error) {
+          console.log(error)
+        }
+
+        
+      }
+      const handleCurrentUser = async () => {
+          const provider = await $moralis.enableWeb3()
+          const user = $moralis.User.current()
+          if (user) {
+            const address = user.get('ethAddress')
+            console.log(user)
+            console.log(provider)
+            console.log(address)
+            setUser(user)
+            setAccountAddress(address)
+            setProvider(provider)
+            console.log(store.state.user)
+            console.log(store.state.provider)
+            console.log(store.state.address)
+
+          }
+        }
+
+        onMounted(() => {
+          handleCurrentUser()
+          console.log("mounted")
+          //getSWTNfts()
+          //getUserNfts()
+        })
+      return {
+        metaLogin,
+        isAuthenticated: computed(() => Object.keys(store.state.user).length > 0),
+        user: computed(() => store.state.user),
+        address: computed(() => store.state.address),
+        provider: computed(() => store.state.provider),
+      }
+    }
 }
 </script>
 
