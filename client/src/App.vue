@@ -20,7 +20,13 @@
 <script>
 import NavigationMobile from './components/NavigationMobile.vue';
 import NavigationDesktop from './components/NavigationDesktop.vue';
-import { ref } from 'vue';
+//import { checkNetwork } from './js/mrkt_api.js';
+
+
+
+import { ref, inject } from 'vue';
+import { useStore } from 'vuex';
+
 
 export default {
   name: "App",
@@ -29,11 +35,23 @@ export default {
     NavigationDesktop
   },
   setup() {
+    const store = useStore()
+    const $moralis = inject('$moralis')
+
     const isActive = ref(false)
     const lightMode = async () => {
       isActive.value = !isActive.value;
       return
     }
+
+    $moralis.onAccountChanged((chain) => {
+      console.log(chain);
+      $moralis.User.logOut()
+      store.state.user = {}
+      store.state.address = null
+      store.state.provider = null
+    });
+
     return {
       isActive,
       lightMode

@@ -7,7 +7,7 @@
     </template>
     <template v-else>
       <button @click="metaLogin">Metamask</button>
-  </template>
+    </template>
     <p>ACCOUNT BALANCE/LOGOUT</p>
   </div>
 </template>
@@ -21,6 +21,7 @@ export default {
     setup() {
       const store = useStore()
       const $moralis = inject('$moralis')
+
 
       const setUser = (payload) => store.commit('setUser', payload)
       const setAccountAddress = (address) => store.commit('setAccountAddress', address)
@@ -50,6 +51,7 @@ export default {
           setAccountAddress(address)
           setProvider(provider)
           //getUserNfts()
+          console.log(user)
         } catch (error) {
           console.log(error)
         }
@@ -63,24 +65,17 @@ export default {
           const user = $moralis.User.current()
           if (user) {
             const address = user.get('ethAddress')
-            console.log(user)
-            console.log(provider)
-            console.log(address)
             setUser(user)
             setAccountAddress(address)
             setProvider(provider)
-            console.log(store.state.user)
-            console.log(store.state.provider)
-            console.log(store.state.address)
 
           }
         }
 
         onMounted(() => {
+          console.log(Object.keys(store.state.user))
           handleCurrentUser()
           console.log("mounted")
-          //getSWTNfts()
-          //getUserNfts()
         })
       return {
         metaLogin,
