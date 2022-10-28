@@ -73,7 +73,6 @@ export default {
         }
 
         onMounted(() => {
-          console.log(Object.keys(store.state.user))
           handleCurrentUser()
           console.log("mounted")
         })

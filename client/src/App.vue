@@ -38,19 +38,50 @@ export default {
     const store = useStore()
     const $moralis = inject('$moralis')
 
+    const setUser = (payload) => store.commit('setUser', payload)
+    const setAccountAddress = (address) => store.commit('setAccountAddress', address)
+    const setProvider = (provider) => store.commit('setProvider', provider)
+
     const isActive = ref(false)
     const lightMode = async () => {
       isActive.value = !isActive.value;
       return
     }
 
+    const switchCurrentUser = async () => {
+      try {
+          const provider = await $moralis.enableWeb3()
+          const user = await $moralis.Web3.authenticate()
+          const address = user.get('ethAddress')
+          setUser(user)
+          setAccountAddress(address)
+          setProvider(provider)
+          console.log(user)
+        } catch (error) {
+          console.log(error)
+      }
+    }
     $moralis.onAccountChanged((chain) => {
       console.log(chain);
       $moralis.User.logOut()
       store.state.user = {}
       store.state.address = null
       store.state.provider = null
+      
+      switchCurrentUser()
+      
     });
+    $moralis.onChainChanged((chain) => {
+      console.log(chain);
+      if (chain != 0x38) {
+        $moralis.User.logOut()
+        store.state.user = {}
+        store.state.address = null
+        store.state.provider = null
+        window.location.reload();
+      }
+    });
+
 
     return {
       isActive,
