@@ -6,9 +6,11 @@
         <p>CREATE - CONSERVE - NATUREFI</p>
       </div>
     </div>
+    <!--
     <div class="login_container">
       <Login/>
     </div>
+    -->
     <div class="filter_container">
       <Filter/>
     </div>
@@ -19,7 +21,7 @@
 </template>
 
 <script>
-import Login from '@/components/Login.vue';
+//import Login from '@/components/Login.vue';
 import NftGrid from '@/components/NftGrid.vue';
 import Filter from '@/components/Filter.vue';
 import { ref } from 'vue';
@@ -27,7 +29,7 @@ import { ref } from 'vue';
 export default {
   name: 'Home',
   components: {
-    Login,
+    //Login,
     NftGrid,
     Filter
   },

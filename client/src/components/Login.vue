@@ -1,9 +1,12 @@
 <template>
-  <div >
+  <div :key="render">
     <h1>Login Module</h1>
     <p>METAMASK</p>
     <template v-if="isAuthenticated">
       <p>disconnect to logout</p>
+      <h1>USER</h1>
+      <p>{{user_ref}}</p>
+      <button @click="switchCurrentUser">Switch User</button>
     </template>
     <template v-else>
       <button @click="metaLogin">Metamask</button>
@@ -13,7 +16,7 @@
 </template>
 
 <script>
-import { onMounted, inject, computed } from 'vue';
+import { onMounted, inject, computed, ref } from 'vue';
 import { useStore } from 'vuex';
 
 export default {
@@ -21,7 +24,7 @@ export default {
     setup() {
       const store = useStore()
       const $moralis = inject('$moralis')
-
+      const user_ref = ref(store.state.address)
 
       const setUser = (payload) => store.commit('setUser', payload)
       const setAccountAddress = (address) => store.commit('setAccountAddress', address)
@@ -52,11 +55,29 @@ export default {
           setProvider(provider)
           //getUserNfts()
           console.log(user)
+          user_ref.value = address
         } catch (error) {
           console.log(error)
         }
 
-        
+      }
+      const switchCurrentUser = async () => {
+        try {
+            $moralis.User.logOut()
+            store.state.user = {}
+            store.state.address = null
+            store.state.provider = null
+            const provider = await $moralis.enableWeb3()
+            const user = await $moralis.Web3.authenticate()
+            const address = user.get('ethAddress')
+            setUser(user)
+            setAccountAddress(address)
+            setProvider(provider)
+            console.log(user)
+            user_ref.value = address
+          } catch (error) {
+            console.log(error)
+        }
       }
       const handleCurrentUser = async () => {
           const provider = await $moralis.enableWeb3()
@@ -82,6 +103,9 @@ export default {
         user: computed(() => store.state.user),
         address: computed(() => store.state.address),
         provider: computed(() => store.state.provider),
+        switchCurrentUser,
+        user_ref
+        
       }
     }
 }
