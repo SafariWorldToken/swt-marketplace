@@ -37,6 +37,8 @@ client
             style
         components
             Components.vue
+        plugins
+            moralis.js
         router
             index.js
         store
